@@ -1,0 +1,89 @@
+{
+    "version": "2.0.0",
+    "tasks": [
+        {
+            "label": "cmake",
+            "type": "shell",
+            "linux": {
+                "command": [
+                    "mkdir -p build/linux",
+                    " && cd ./build/linux",
+                    " && cmake -DCMAKE_BUILD_TYPE=Debug ../.."
+                ]
+            },
+            "windows": {
+                "command": "cmd",
+                "args": [
+                    "mkdir -p build/windows",
+                    " && cd ./build/windows",
+                    " && cmake -DCMAKE_BUILD_TYPE=Debug ../.."
+                ]
+            }
+        },
+        {
+            "label": "build all",
+            "type": "shell",
+            "linux": {
+                "command": [
+                    "cd ./build/linux",
+                    " && make all"
+                ],
+            },
+            "windows": {
+                "command": [
+                    "cd ./build/windows",
+                    " && make all"
+                ],
+            },
+            "dependsOn":["cmake"],
+            "group": {
+                "kind": "build",
+                "isDefault": true
+            },
+        },
+        {
+            "label": "run tests",
+            "type": "shell",
+            "command": [
+                "cd ./build/linux",
+                " && make tests"
+            ],
+            "dependsOn":["build all"],
+        },
+        {
+            "label": "coverage",
+            "type": "shell",
+            "command": [
+                "cd ./build/linux",
+                " && make Coverage"
+            ],
+            "dependsOn":["build all"],
+        },
+        {
+            "label": "documentation",
+            "type": "shell",
+            "command": [
+                "cd ./build/linux",
+                " && make Documentation"
+            ]
+        },
+        {
+            "label": "run game",
+            "type": "shell",
+            "linux": {
+                "command": [
+                    " cd ./build/linux",
+                    " && ./Console-Game"
+                ]
+            },
+            "windows": {
+                "command": "cmd",
+                "args": [
+                    "cd ./build/windows",
+                    " && Console-Game.exe"
+                ]
+            },
+            "dependsOn":["build all"],
+        }
+    ]
+  }
