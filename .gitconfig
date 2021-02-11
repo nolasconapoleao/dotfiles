@@ -1,0 +1,10 @@
+[user]
+	name = NAME HERE
+	email = EMAIL HERE
+[alias]
+	s = status -s
+	a = add
+	co = checkout
+	cob = checkout -b
+	lg = !git log --pretty=format:\"%C(magenta)%h%Creset -%C(red)%d%Creset %s %C(dim green)(%cr) [%an]\" --abbrev-commit -30
+	nuke = !git clean -xfd; git submodule foreach --recursive git clean -xfd; git reset --hard; git submodule foreach --recursive git reset --hard; git submodule update --init --recursive
