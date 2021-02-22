@@ -5,10 +5,10 @@
     "version": "0.2.0",
     "configurations": [
         {
-            "name": "(gdb) Launch Main",
+            "name": "(gdb) Launch Game",
             "type": "cppdbg",
             "request": "launch",
-            "program": "COMPILED PROJECT MAIN EXECUTABLE PATH",
+            "program": "${workspaceFolder}/build/debug/Console-Game",
             "args": [],
             "stopAtEntry": false,
             "cwd": "${workspaceFolder}",
@@ -26,7 +26,7 @@
             "name": "(gdb) Launch Unit test",
             "type": "cppdbg",
             "request": "launch",
-            "program": "COMPILED UNIT TEST PATH WITHOUT EXTENSION",
+            "program": "${workspaceFolder}/build/debug/${relativeFileDirname}/${fileBasenameNoExtension}",
             "args": [],
             "stopAtEntry": false,
             "cwd": "${workspaceFolder}",
