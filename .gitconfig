@@ -7,4 +7,6 @@
 	co = checkout
 	cob = checkout -b
 	lg = !git log --pretty=format:\"%C(magenta)%h%Creset -%C(red)%d%Creset %s %C(dim green)(%cr) [%an]\" --abbrev-commit -30
-	nuke = !git clean -xfd; git submodule foreach --recursive git clean -xfd; git reset --hard; git submodule foreach --recursive git reset --hard; git submodule update --init --recursive
+	nuke = !git clean -xfd &&  git submodule foreach --recursive git clean -xfd && git reset --hard && git submodule foreach --recursive git reset --hard && git submodule update --init --recursive
+	tho = !git checkout -b gitTheHellOut && git add . && git commit -m 'Emergency commit' && git push --set-upstream origin gitTheHellOut
+	amne = !git a -u && git commit --amend --no-edit && git push --force

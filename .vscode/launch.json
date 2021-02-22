@@ -8,10 +8,11 @@
             "name": "Debug game",
             "type": "cppdbg",
             "request": "launch",
-            "program": "${workspaceFolder}/build/linux/Console-Game",
+            // REPLACE TARGET NAME
+            "program": "${workspaceFolder}/build/debug/TARGETNAME",
             "args": [],
             "stopAtEntry": false,
-            "cwd": "${workspaceFolder}/build/linux",
+            "cwd": "${workspaceFolder}/debug",
             "environment": [],
             "MIMode": "gdb",
             "setupCommands": [
