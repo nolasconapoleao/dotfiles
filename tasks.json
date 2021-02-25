@@ -2,46 +2,99 @@
     "version": "2.0.0",
     "tasks": [
         {
+            "label": "Cmake",
+            "type": "shell",
+            "command": [
+                "mkdir -p build/debug",
+                " && cd ./build/debug",
+                " && cmake -DCMAKE_BUILD_TYPE=Debug ../.."
+            ],
+            "group": {
+                "kind": "build",
+                "isDefault": true
+            }
+        },
+        {
+            "label": "Make all",
+            "type": "shell",
+            "command": [
+                "cd ./build/debug",
+                " && make all"
+            ],
+            "dependsOn":["Cmake"]
+        },
+        {
             "label": "Run tests",
             "type": "shell",
             "command": [
-                "YOUR CODE HERE"
-            ]
+                "cd ./build/debug",
+                " && make test"
+            ],
+            "dependsOn":["Make all"],
         },
         {
             "label": "Static analysis",
             "type": "shell",
             "command": [
-                "YOUR CODE HERE"
+                "if [[ ${file} =~ .(c|cpp|h|cc)$ ]]; then;",
+                "   clang-format -i ${file};",
+                "elif [[ ${file} =~ (CMakeLists.txt|.cmake) ]]; then;",
+                "   cmake-format -i ${file};",
+                "fi"
             ]
         },
         {
             "label": "Dynamic analysis",
             "type": "shell",
             "command": [
-                "YOUR CODE HERE"
+                "mkdir -p build/debug++",
+                " && cd ./build/debug++",
+                " && cmake -DCMAKE_BUILD_TYPE=Debug -DENABLE_DIAGNOSTIC_TOOLS=ON ../..",
+                " && make all"
             ]
         },
         {
             "label": "Coverage",
             "type": "shell",
             "command": [
-                "YOUR CODE HERE"
-            ]
+                "cd ./build/debug",
+                " && make Coverage",
+                " && brave ${workspaceFolder}/build/coverage/index.html"
+            ],
+            "dependsOn":["Cmake"]
         },
         {
             "label": "Documentation",
             "type": "shell",
             "command": [
-                "YOUR CODE HERE"
-            ]
+                "cd ./build/debug",
+                " && make Documentation",
+                " && brave ${workspaceFolder}/build/docs/html/index.html"
+            ],
+            "dependsOn":["Cmake"]
         },
         {
-            "label": "Execute code",
+            "label": "Play game",
             "type": "shell",
-            "command": [
-                "YOUR CODE HERE"
-            ]
+            "linux": {
+                "command": [
+                    "mkdir -p build/release",
+                    " && cd ./build/release",
+                    " && cmake -DCMAKE_BUILD_TYPE=Release ../..",
+                    " && make Console-Game",
+                    " && ./Console-Game"
+                ]
+            },
+            "windows": {
+                "command": "cmd",
+                "args": [
+                    "mkdir -p build/release",
+                    " && cd ./build/release",
+                    " && cmake -DCMAKE_BUILD_TYPE=Release -DUNIX_COMPILATION=OFF ../..",
+                    " && make Console-Game",
+                    " && ./Console-Game.exe"
+                ]
+            }
         }
     ]
   }
