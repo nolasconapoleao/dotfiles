@@ -1,0 +1,47 @@
+{
+    "version": "2.0.0",
+    "tasks": [
+        {
+            "label": "Run tests",
+            "type": "shell",
+            "command": [
+                "YOUR CODE HERE"
+            ]
+        },
+        {
+            "label": "Static analysis",
+            "type": "shell",
+            "command": [
+                "YOUR CODE HERE"
+            ]
+        },
+        {
+            "label": "Dynamic analysis",
+            "type": "shell",
+            "command": [
+                "YOUR CODE HERE"
+            ]
+        },
+        {
+            "label": "Coverage",
+            "type": "shell",
+            "command": [
+                "YOUR CODE HERE"
+            ]
+        },
+        {
+            "label": "Documentation",
+            "type": "shell",
+            "command": [
+                "YOUR CODE HERE"
+            ]
+        },
+        {
+            "label": "Execute code",
+            "type": "shell",
+            "command": [
+                "YOUR CODE HERE"
+            ]
+        }
+    ]
+  }
