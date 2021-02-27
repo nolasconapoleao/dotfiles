@@ -1,0 +1,216 @@
+{
+    "version": "2.0.0",
+    "tasks": [
+        {
+            // ###########################
+            // ####### Cmake #######
+            "label": "Cmake",
+            "type": "shell",
+            "windows": {
+                "command": [
+                    "bash -c \"",
+                        " mkdir -p build/debug",
+                        " && cd ./build/debug",
+                        " && cmake -DCMAKE_BUILD_TYPE=Debug ../..",
+                    "\""
+                ]
+            },
+            "linux": {
+                "command": [
+                    " mkdir -p build/debug",
+                    " && cd ./build/debug",
+                    " && cmake -DCMAKE_BUILD_TYPE=Debug ../..",
+                ]
+            },
+            "group": {
+                "kind": "build",
+                "isDefault": true
+            }
+        },
+
+
+        {
+            // ###########################
+            // ####### Make #######
+            "label": "Make all",
+            "type": "shell",
+            "windows": {
+                "command": [
+                    "bash -c \"",
+                        "cd ./build/debug",
+                        " && make all",
+                     "\""
+                ]
+            },
+            "linux": {
+                "command": [
+                    "cd ./build/debug",
+                    " && make all",
+                ]
+            },
+            "dependsOn":["Cmake"]
+        },
+
+
+        {
+            // ###########################
+            // ####### Run #######
+            "label": "Run tests",
+            "type": "shell",
+            "windows": {
+                "command": [
+                    "bash -c \"",
+                        "cd ./build/debug",
+                        " && make test",
+                    "\""
+                ]
+            },
+            "linux": {
+                "command": [
+                    "cd ./build/debug",
+                    " && make test",
+                ]
+            },
+            "dependsOn":["Make all"]
+        },
+
+
+        {
+            // ###########################
+            // ####### Static #######
+            "label": "Static analysis",
+            "type": "shell",
+            "windows": {
+                "command": [
+                    "cd ${fileDirname}",
+                    "&& bash -c \"",
+                        "if [[ ${fileExtname} =~ .(c|cpp|h|cc)$ ]]; then",
+                        "   clang-format -i ${fileBasename};",
+                        "elif [[ ${fileBasename} =~ (CMakeLists.txt|.cmake) ]]; then",
+                        "   cmake-format -i ${fileBasename};",
+                        "fi",
+                    "\"",
+                ]
+            },
+            "linux": {
+                "command": [
+                    "if [[ ${file} =~ .(c|cpp|h|cc)$ ]]; then;",
+                    "   clang-format -i ${file};",
+                    "elif [[ ${file} =~ (CMakeLists.txt|.cmake) ]]; then;",
+                    "   cmake-format -i ${file};",
+                    "fi"
+                ]
+            },
+        },
+
+
+        {
+            // ###########################
+            // ####### Dynamic #######
+            "label": "Dynamic analysis",
+            "type": "shell",
+            "windows": {
+                "command": [
+                    "bash -c \"",
+                        "mkdir -p build/debug++",
+                        " && cd ./build/debug++",
+                        " && cmake -DCMAKE_BUILD_TYPE=Debug -DENABLE_DIAGNOSTIC_TOOLS=ON ../..",
+                        " && make all",
+                    "\""
+                ]
+            },
+            "linux": {
+                "command": [
+                    "mkdir -p build/debug++",
+                    " && cd ./build/debug++",
+                    " && cmake -DCMAKE_BUILD_TYPE=Debug -DENABLE_DIAGNOSTIC_TOOLS=ON ../..",
+                    " && make all",
+                ]
+            },
+            "command": [
+                
+            ]
+        },
+
+
+        {
+            // ###########################
+            // ####### Coverage #######
+            "label": "Coverage",
+            "type": "shell",
+            "windows": {
+                "command": [
+                    "bash -c \"",
+                        "cd ./build/debug",
+                        " && make Coverage",
+                    "\"",
+                    " && start brave \"${workspaceFolder}/build/coverage/index.html"
+                ]
+            },
+            "linux": {
+                "command": [
+                    "cd ./build/debug",
+                    " && make Coverage",
+                    " && brave ${workspaceFolder}/build/coverage/index.html"
+                ]
+            },
+            "command": [
+                
+            ],
+            "dependsOn":["Cmake"]
+        },
+
+        
+        {
+            // ###########################
+            // ####### Documentation #######
+            "label": "Documentation",
+            "type": "shell",
+            "windows": {
+                "command": [
+                    "bash -c \"",
+                        "cd ./build/debug",
+                        " && make Documentation",
+                    "\"",
+                    " && start brave \"${workspaceFolder}/build/docs/html/index.html\""
+                ]
+            },
+            "linux": {
+                "command": [
+                    "cd ./build/debug",
+                    " && make Documentation",
+                    " && brave ${workspaceFolder}/build/docs/html/index.html"
+                ]
+            },
+            "dependsOn":["Cmake"]
+        },
+
+
+        {
+            // ###########################
+            // ####### Execute #######
+            "label": "Execute program",
+            "type": "shell",
+            "windows": {
+                "command": [
+                    "bash -c \"",
+                        "mkdir -p build/release",
+                        " && cd ./build/release",
+                        " && cmake -DCMAKE_BUILD_TYPE=Release ../..",
+                        " && make Console-Game",
+                        " && ./Console-Game",
+                    "\""
+                ]
+            },
+            "linux": {
+                "command": [
+                    "mkdir -p build/release",
+                    " && cd ./build/release",
+                    " && cmake -DCMAKE_BUILD_TYPE=Release ../..",
+                    " && make Console-Game",
+                    " && ./Console-Game",
+                ]
+            },
+        },
+    ]
+}
