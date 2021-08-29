@@ -13,4 +13,4 @@ feh
 ## Print screen utilities
 scrot
 xclip
-
+xdotool
