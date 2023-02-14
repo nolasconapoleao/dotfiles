@@ -14,3 +14,6 @@ feh
 scrot
 xclip
 xdotool
+
+Fonts for font awesome are no longer compatbile with v6, making the status bar appear broken
+https://github.com/gabrielelana/awesome-terminal-fonts
